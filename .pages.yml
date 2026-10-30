@@ -70,6 +70,9 @@ content:
     type: code
     options:
       format: markdown
+  - name: tresc_en
+    label: 'EN: opis (Markdown; puste = wersja angielska pokaże opis po polsku)'
+    type: text
 - name: referaty
   label: Referaty
   description: Każde seminarium ma swój folder — dodaj referat w folderze właściwego seminarium. Termin i salę wpisuje się przy każdym referacie.

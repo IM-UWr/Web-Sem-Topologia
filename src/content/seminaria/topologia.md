@@ -11,6 +11,7 @@ kontakt: "Piotr.Borodulin-Nadzieja@math.uni.wroc.pl"
 archiwum: "http://www.math.uni.wroc.pl/~pborod/seminarium/"
 zaklad: "teoria-mnogosci-i-topologia"
 aktywne: true
+tresc_en: "Seminar of the Department of Set Theory and Topology."
 opublikowany: true
 ---
 
