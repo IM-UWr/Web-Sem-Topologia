@@ -21,6 +21,12 @@ content:
   - name: nazwa_en
     label: 'EN: nazwa'
     type: string
+  - name: haslo
+    label: Hasło (podtytuł na liście seminariów)
+    type: string
+  - name: haslo_en
+    label: 'EN: hasło (podtytuł na liście seminariów)'
+    type: string
   - name: prowadzacy
     label: Koordynator (imię i nazwisko jak w spisie pracowników; tytuł doda się sam)
     description: Termin i salę wpisuje się przy każdym referacie osobno.
