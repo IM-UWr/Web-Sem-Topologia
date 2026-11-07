@@ -138,7 +138,10 @@ content:
   - name: pliki
     label: Pliki (slajdy itp.)
     type: object
-    list: true
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{nazwa}"
     fields:
     - name: nazwa
       label: Nazwa
