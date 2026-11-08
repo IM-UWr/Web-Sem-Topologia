@@ -97,8 +97,10 @@ content:
     - prelegent
     - termin
     primary: tytul
-    sort: termin
-    order: desc
+    sort: [termin]
+    default:
+      sort: termin
+      order: desc
   fields:
   - name: tytul
     label: Tytuł referatu
