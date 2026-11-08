@@ -1,5 +1,4 @@
-# Pages CMS — Web-Sem-Topologia: Seminarium: Topologia.
-# Wygenerowane przy migracji z Avean/IM-Website-test; pola „Opublikowany” usunięte (bez wersji roboczych).
+# Pages CMS — formularze aktualnej strony Instytutu Matematycznego UWr.
 media:
   input: public/pliki
   output: /pliki
@@ -18,30 +17,49 @@ content:
     label: Nazwa seminarium
     type: string
     required: true
+    description: Nazwa wyświetlana na stronie i powiązanych listach.
+  - name: status_publikacji
+    label: Status publikacji
+    type: select
+    required: true
+    default: oficjalna
+    description: Zapisuje wybór do przyszłej publikacji. Obecnie nie zmienia widoczności. Podgląd jest publiczny.
+    options:
+      values:
+      - name: oficjalna
+        label: Opublikowana — strona oficjalna i podgląd
+      - name: podglad
+        label: Tylko podgląd
   - name: nazwa_en
     label: 'EN: nazwa'
     type: string
+    description: Angielska wersja pola Nazwa seminarium; puste oznacza użycie wersji polskiej.
   - name: haslo
-    label: Hasło (podtytuł na liście seminariów)
+    label: Hasło w nagłówku
     type: string
+    description: Krótki podtytuł seminarium na liście seminariów.
   - name: haslo_en
     label: 'EN: hasło (podtytuł na liście seminariów)'
     type: string
+    description: Angielska wersja hasła; puste oznacza użycie wersji polskiej.
   - name: prowadzacy
     label: Koordynator (imię i nazwisko jak w spisie pracowników; tytuł doda się sam)
-    description: Termin i salę wpisuje się przy każdym referacie osobno.
+    description: Imiona i nazwiska koordynatorów jak w spisie pracowników, bez tytułów. Termin i sala należą do
+      referatu.
     type: string
     list: true
   - name: kontakt
     label: E-mail kontaktowy (pod nazwiskiem koordynatora)
     type: string
+    description: E-mail wyświetlany przy koordynatorach seminarium.
   - name: archiwum
     label: Link do archiwum referatów (np. dawna strona seminarium; pokazuje się pod minionymi referatami)
     type: string
+    description: Adres archiwalnych materiałów, dostępny jako link na stronie.
   - name: zaklad
     label: Zakład (puste = seminarium niezależne)
-    description: Każdy zakład ma jedno seminarium. Seminarium niezwiązane z zakładem zostaw bez zakładu — pokaże się w grupie „Seminaria niezależne”. (lista z innego
-      repozytorium — nowa pozycja wymaga dopisania w konfiguracji)
+    description: Powiązanie ze stroną zakładu. Lista pochodzi z Web-Instytut; dodanie zakładu wymaga uzupełnienia
+      listy wyboru.
     type: select
     options:
       values:
@@ -67,21 +85,29 @@ content:
     label: Aktywne
     type: boolean
     default: true
-  - name: do_uzupelnienia
-    label: Do uzupełnienia (notatka redakcyjna, niewyświetlana)
-    type: string
-    list: true
+    description: Aktywne seminarium pojawia się w bieżących grupach; nieaktywne w archiwalnych.
   - name: body
     label: Opis (Markdown, wzory w $...$)
     type: code
     options:
       format: markdown
+    description: Opis seminarium. Terminy referatów oraz koordynatorów uzupełnij w odpowiednich polach.
   - name: tresc_en
     label: 'EN: opis (Markdown; puste = wersja angielska pokaże opis po polsku)'
     type: text
+    description: Tekst strony po angielsku; puste oznacza wyświetlanie tekstu polskiego. Układ treści jest taki
+      sam jak w polskim opisie.
+  - name: opublikowany
+    label: Dotychczasowe uwzględnianie w zestawieniach
+    type: boolean
+    hidden: true
+    default: true
+    description: Zachowuje dotychczasową widoczność w zestawieniach i indeksowanie. To osobna opcja od statusu publikacji.
+  description: Opis seminarium i koordynatorzy. Termin oraz salę wpisz osobno przy każdym referacie.
 - name: referaty
   label: Referaty
-  description: Każde seminarium ma swój folder — dodaj referat w folderze właściwego seminarium. Termin i salę wpisuje się przy każdym referacie.
+  description: 'Referaty tego seminarium: strona seminarium, kalendarz i zapowiedzi. Folder określa przypisanie
+    do seminarium.'
   type: collection
   path: src/content/referaty/topologia
   format: yaml-frontmatter
@@ -94,17 +120,34 @@ content:
     - tytul
     - prelegent
     - termin
+    - status_publikacji
     primary: tytul
-    sort: termin
-    order: desc
+    sort:
+    - termin
+    default:
+      sort: termin
+      order: desc
   fields:
   - name: tytul
     label: Tytuł referatu
     type: string
     required: true
+    description: Nazwa strony lub wpisu, widoczna także na odpowiednich listach i w wynikach wyszukiwania.
+  - name: status_publikacji
+    label: Status publikacji
+    type: select
+    required: true
+    default: oficjalna
+    description: Zapisuje wybór do przyszłej publikacji. Obecnie nie zmienia widoczności. Podgląd jest publiczny.
+    options:
+      values:
+      - name: oficjalna
+        label: Opublikowana — strona oficjalna i podgląd
+      - name: podglad
+        label: Tylko podgląd
   - name: jezyk
     label: Język referatu
-    description: Gdy polski, na stronie angielskiej po tytule pojawi się „(talk in Polish)”. Tytułu się nie tłumaczy.
+    description: Polski dodaje na stronie angielskiej informację talk in Polish. Tytuł pozostaje w języku oryginału.
     type: select
     options:
       values:
@@ -116,12 +159,15 @@ content:
     label: Prelegent
     type: string
     required: true
+    description: Imię i nazwisko osoby wygłaszającej referat.
   - name: afiliacja
     label: Afiliacja
     type: string
+    description: Uczelnia lub instytucja prelegenta.
   - name: afiliacja_en
     label: 'EN: afiliacja (puste = wersja angielska pokaże afiliację po polsku)'
     type: string
+    description: Angielska wersja pola Afiliacja; puste oznacza użycie wersji polskiej.
   - name: termin
     label: Termin
     type: date
@@ -129,33 +175,49 @@ content:
     options:
       time: true
       format: yyyy-MM-dd'T'HH:mm
+    description: Data i godzina wydarzenia w czasie lokalnym; używana również w kalendarzu.
   - name: sala
     label: Sala
     type: string
+    description: Numer sali, np. 605, albo opis miejsca lub spotkania online.
   - name: sala_en
-    label: 'EN: sala (opis miejsca po angielsku, gdy to nie numer sali; puste = wersja angielska pokaże salę po polsku)'
+    label: 'EN: sala (opis miejsca po angielsku, gdy to nie numer sali; puste = wersja angielska pokaże salę po
+      polsku)'
     type: string
+    description: Angielska wersja pola Sala; puste oznacza użycie wersji polskiej.
   - name: pliki
     label: Pliki (slajdy itp.)
     type: object
     list:
       collapsible:
         collapsed: true
-        summary: "{nazwa}"
+        summary: '{nazwa}'
     fields:
     - name: nazwa
       label: Nazwa
       type: string
+      description: Nazwa wyświetlana na stronie i powiązanych listach.
     - name: plik
       label: Plik
       type: file
       options:
         path: public/pliki/seminaria
+      description: Wgraj plik albo wybierz już dostępny; na stronie pojawi się odnośnik.
+    description: Pliki do pobrania przy referacie, np. slajdy.
   - name: body
     label: Streszczenie (Markdown, wzory w $...$)
     type: code
     options:
       format: markdown
+    description: 'Streszczenie referatu. Można używać wzorów zapisanych między znakami $. '
   - name: tresc_en
     label: 'EN: streszczenie (Markdown, wzory w $...$; puste = wersja angielska pokaże streszczenie z pola wyżej)'
     type: text
+    description: Tekst strony po angielsku; puste oznacza wyświetlanie tekstu polskiego. Układ treści jest taki
+      sam jak w polskim opisie.
+  - name: opublikowany
+    label: Dotychczasowe uwzględnianie w zestawieniach
+    type: boolean
+    hidden: true
+    default: true
+    description: Zachowuje dotychczasową widoczność w zestawieniach i indeksowanie. To osobna opcja od statusu publikacji.
