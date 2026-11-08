@@ -78,7 +78,9 @@ content:
       format: markdown
   - name: tresc_en
     label: 'EN: opis (Markdown; puste = wersja angielska pokaże opis po polsku)'
-    type: text
+    type: code
+    options:
+      format: markdown
 - name: referaty
   label: Referaty
   description: Każde seminarium ma swój folder — dodaj referat w folderze właściwego seminarium. Termin i salę wpisuje się przy każdym referacie.
@@ -158,4 +160,6 @@ content:
       format: markdown
   - name: tresc_en
     label: 'EN: streszczenie (Markdown, wzory w $...$; puste = wersja angielska pokaże streszczenie z pola wyżej)'
-    type: text
+    type: code
+    options:
+      format: markdown
