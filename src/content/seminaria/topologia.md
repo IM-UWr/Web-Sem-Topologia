@@ -1,4 +1,5 @@
 ---
+status_publikacji: oficjalna
 nazwa: "Topologia"
 nazwa_en: "Topology"
 prowadzacy:
