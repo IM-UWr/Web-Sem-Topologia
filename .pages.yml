@@ -90,7 +90,6 @@ content:
   subfolders: true
   filename:
     template: '{year}-{month}-{day}-{primary}.md'
-    field: create
   view:
     fields:
     - tytul
@@ -152,9 +151,14 @@ content:
       type: string
     - name: plik
       label: Plik
+      description: Wymagane. Jeśli nie chcesz pliku, usuń tę pozycję ikoną kosza.
       type: file
+      required: true
       options:
         path: public/pliki/seminaria
+    - name: pozycja
+      type: boolean
+      hidden: true
   - name: body
     label: Streszczenie (Markdown, wzory w $...$)
     type: code
