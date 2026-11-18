@@ -1,5 +1,6 @@
 # Pages CMS — Web-Sem-Topologia: Seminarium: Topologia.
 # Wygenerowane przy migracji z Avean/IM-Website-test; pola „Opublikowany” usunięte (bez wersji roboczych).
+# Zlecenie 40: opis seminarium i streszczenie referatu zaraz pod tytułem, pola EN pod polskimi, ściągawka przy Treści, szablon streszczenia, ukryta notatka redakcyjna.
 media:
   input: public/pliki
   output: /pliki
@@ -10,6 +11,7 @@ settings:
 content:
 - name: seminarium
   label: 'Seminarium: Topologia (opis)'
+  description: "Opis seminarium: prowadzący, kontakt, archiwum. Widać go na stronie seminarium w Nauce → Seminaria."
   type: file
   path: src/content/seminaria/topologia.md
   format: yaml-frontmatter
@@ -21,6 +23,17 @@ content:
   - name: nazwa_en
     label: 'EN: nazwa'
     type: string
+  - name: body
+    label: Opis (Markdown, wzory w $...$)
+    description: "Zwykły Markdown: akapity oddziela pusta linia; **pogrubienie**, *kursywa*, [tekst linku](https://…); lista: „- ” na początku linii; ## = nagłówek sekcji. Plik PDF: wgraj w „Media” i wklej link. Komentarze <!-- … --> to podpowiedzi; na stronie ich nie widać. Wzory w $…$."
+    type: code
+    options:
+      format: markdown
+  - name: tresc_en
+    label: 'EN: opis (Markdown; puste = wersja angielska pokaże opis po polsku)'
+    type: code
+    options:
+      format: markdown
   - name: haslo
     label: Hasło (podtytuł na liście seminariów)
     type: string
@@ -40,8 +53,7 @@ content:
     type: string
   - name: zaklad
     label: Zakład (puste = seminarium niezależne)
-    description: Każdy zakład ma jedno seminarium. Seminarium niezwiązane z zakładem zostaw bez zakładu — pokaże się w grupie „Seminaria niezależne”. (lista z innego
-      repozytorium — nowa pozycja wymaga dopisania w konfiguracji)
+    description: Każdy zakład ma jedno seminarium. Seminarium niezwiązane z zakładem zostaw bez zakładu — pokaże się w grupie „Seminaria niezależne”. (lista z innego repozytorium — nowa pozycja wymaga dopisania w konfiguracji)
     type: select
     options:
       values:
@@ -71,16 +83,7 @@ content:
     label: Do uzupełnienia (notatka redakcyjna, niewyświetlana)
     type: string
     list: true
-  - name: body
-    label: Opis (Markdown, wzory w $...$)
-    type: code
-    options:
-      format: markdown
-  - name: tresc_en
-    label: 'EN: opis (Markdown; puste = wersja angielska pokaże opis po polsku)'
-    type: code
-    options:
-      format: markdown
+    hidden: true
 - name: referaty
   label: Referaty
   description: Każde seminarium ma swój folder — dodaj referat w folderze właściwego seminarium. Termin i salę wpisuje się przy każdym referacie.
@@ -138,6 +141,18 @@ content:
   - name: sala_en
     label: 'EN: sala (opis miejsca po angielsku, gdy to nie numer sali; puste = wersja angielska pokaże salę po polsku)'
     type: string
+  - name: body
+    label: Streszczenie (Markdown, wzory w $...$)
+    description: "Zwykły Markdown: akapity oddziela pusta linia; **pogrubienie**, *kursywa*, [tekst linku](https://…); lista: „- ” na początku linii; ## = nagłówek sekcji. Plik PDF: wgraj w „Media” i wklej link. Komentarze <!-- … --> to podpowiedzi; na stronie ich nie widać. Wzory w $…$. Pusta Treść (albo sam komentarz) = referat bez streszczenia."
+    type: code
+    options:
+      format: markdown
+    default: "<!-- STRESZCZENIE: Zwykły tekst; wzory w $…$. Slajdy: dodaj w „Pliki” niżej. -->"
+  - name: tresc_en
+    label: 'EN: streszczenie (Markdown, wzory w $...$; puste = wersja angielska pokaże streszczenie z pola wyżej)'
+    type: code
+    options:
+      format: markdown
   - name: pliki
     label: Pliki (slajdy itp.)
     type: object
@@ -159,13 +174,3 @@ content:
     - name: pozycja
       type: boolean
       hidden: true
-  - name: body
-    label: Streszczenie (Markdown, wzory w $...$)
-    type: code
-    options:
-      format: markdown
-  - name: tresc_en
-    label: 'EN: streszczenie (Markdown, wzory w $...$; puste = wersja angielska pokaże streszczenie z pola wyżej)'
-    type: code
-    options:
-      format: markdown
