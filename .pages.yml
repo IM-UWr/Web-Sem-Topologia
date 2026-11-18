@@ -1,6 +1,7 @@
 # Pages CMS — Web-Sem-Topologia: Seminarium: Topologia.
 # Wygenerowane przy migracji z Avean/IM-Website-test; pola „Opublikowany” usunięte (bez wersji roboczych).
 # Zlecenie 40: opis seminarium i streszczenie referatu zaraz pod tytułem, pola EN pod polskimi, ściągawka przy Treści, szablon streszczenia, ukryta notatka redakcyjna.
+# Zlecenie 48: przełącznik „Opublikowane” w opisie seminarium i w referatach, zaraz pod tytułem (odznaczone = szkic, widoczny tylko na Podglądzie; seminarium-szkic ukrywa też swoje referaty).
 media:
   input: public/pliki
   output: /pliki
@@ -23,6 +24,11 @@ content:
   - name: nazwa_en
     label: 'EN: nazwa'
     type: string
+  - name: opublikowany
+    label: Opublikowane — widoczne na stronie publicznej (na Podglądzie widać zawsze)
+    description: Odznacz, żeby przygotować seminarium bez pokazywania go na stronie publicznej (szkic). Razem z nim znikną wszystkie jego referaty.
+    type: boolean
+    default: true
   - name: body
     label: Opis (Markdown, wzory w $...$)
     description: "Zwykły Markdown: akapity oddziela pusta linia; **pogrubienie**, *kursywa*, [tekst linku](https://…); lista: „- ” na początku linii; ## = nagłówek sekcji. Plik PDF: wgraj w „Media” i wklej link. Komentarze <!-- … --> to podpowiedzi; na stronie ich nie widać. Wzory w $…$."
@@ -108,6 +114,11 @@ content:
     label: Tytuł referatu
     type: string
     required: true
+  - name: opublikowany
+    label: Opublikowane — widoczne na stronie publicznej (na Podglądzie widać zawsze)
+    description: Odznacz, żeby przygotować referat bez pokazywania go na stronie publicznej (szkic).
+    type: boolean
+    default: true
   - name: jezyk
     label: Język referatu
     description: Gdy polski, na stronie angielskiej po tytule pojawi się „(talk in Polish)”. Tytułu się nie tłumaczy.
