@@ -1,10 +1,11 @@
 ---
 nazwa: "Topologia"
 nazwa_en: "Topology"
-prowadzacy:
+prowadzacy_ze_spisu:
+  - "_cms/pracownicy/grzegorz-plebanek.yml"
+  - "_cms/pracownicy/piotr-borodulin-nadzieja.yml"
+prowadzacy_spoza:
   - "Paweł Krupski"
-  - "Grzegorz Plebanek"
-  - "Piotr Borodulin-Nadzieja"
   - "Szymon Żeberski"
   - "Robert Rałowski"
 kontakt: "Piotr.Borodulin-Nadzieja@math.uni.wroc.pl"

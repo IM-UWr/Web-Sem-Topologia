@@ -2,6 +2,7 @@
 # Wygenerowane przy migracji z Avean/IM-Website-test; pola „Opublikowany” usunięte (bez wersji roboczych).
 # Zlecenie 40: opis seminarium i streszczenie referatu zaraz pod tytułem, pola EN pod polskimi, ściągawka przy Treści, szablon streszczenia, ukryta notatka redakcyjna.
 # Zlecenie 48: przełącznik „Opublikowane” w opisie seminarium i w referatach, zaraz pod tytułem (odznaczone = szkic, widoczny tylko na Podglądzie; seminarium-szkic ukrywa też swoje referaty).
+# Zlecenie 42: osoby wybierane ze spisu pracowników (pola „… ze spisu”: lista z katalogu _cms/pracownicy, który aktualizuje się sam po zmianie spisu), osoby spoza spisu wpisywane ręcznie.
 media:
   input: public/pliki
   output: /pliki
@@ -46,9 +47,19 @@ content:
   - name: haslo_en
     label: 'EN: hasło (podtytuł na liście seminariów)'
     type: string
-  - name: prowadzacy
-    label: Koordynator (imię i nazwisko jak w spisie pracowników; tytuł doda się sam)
-    description: Termin i salę wpisuje się przy każdym referacie osobno.
+  - name: prowadzacy_ze_spisu
+    label: Koordynatorzy ze spisu pracowników
+    description: Wybierz z listy (wpisz nazwisko). Tytuł, link i zakład strona weźmie ze spisu pracowników. Termin i salę wpisuje się przy każdym referacie osobno.
+    type: reference
+    options:
+      collection: katalog-pracownikow
+      value: "{path}"
+      label: "{etykieta}"
+      search: etykieta,name
+      multiple: true
+  - name: prowadzacy_spoza
+    label: Koordynatorzy spoza spisu
+    description: "Tylko osoby, których nie ma w spisie (np. recenzent z innej uczelni). Wpisz z tytułem: prof. dr hab. Jan Kowalski."
     type: string
     list: true
   - name: kontakt
@@ -185,3 +196,37 @@ content:
     - name: pozycja
       type: boolean
       hidden: true
+- name: katalog-pracownikow
+  label: Katalog pracowników (tylko odczyt)
+  type: collection
+  path: _cms/pracownicy
+  format: yaml
+  filename: "{primary}.yml"
+  view:
+    primary: etykieta
+    fields:
+    - imie_nazwisko
+    - pracuje
+  description: "Lista wyboru osób ze spisu pracowników (Web-Pracownicy). Nie edytuj: aktualizuje się sama po zmianie spisu (automat; do czasu jego włączenia skrypt skrypty/synchronizuj-katalog-pracownikow.mjs w Web-Core). Dane kontaktowe nie są kopiowane."
+  fields:
+  - name: imie_nazwisko
+    label: Imię i nazwisko
+    type: string
+    readonly: true
+  - name: id
+    label: Stały identyfikator
+    type: string
+    readonly: true
+  - name: etykieta
+    label: Nazwa na liście wyboru
+    type: string
+    readonly: true
+  - name: pracuje
+    label: Pracuje w Instytucie
+    type: boolean
+    default: true
+    readonly: true
+  operations:
+    create: false
+    rename: false
+    delete: false
